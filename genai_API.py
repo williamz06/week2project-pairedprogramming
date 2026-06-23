@@ -5,7 +5,6 @@ import sqlalchemy as db
 from eventfinder import keyword
 
 
-# Set environment variables
 my_api_key = os.getenv('GENAI_KEY')
 
 genai.api_key = my_api_key
@@ -15,7 +14,7 @@ engine = db.create_engine("sqlite:///eventcache.db")
 
 def get_events_from_db():
     with engine.connect() as connection:
-        rows = connection.execute(db.text("SELECT event_id, name, url, date, venue FROM eventcache"))
+        rows = connection.execute(db.text("SELECT event_id, name, url, date, venue FROM eventcache")).fetchall()
     return rows
 
 def build_prompt(events, user_interests):
