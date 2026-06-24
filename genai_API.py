@@ -7,23 +7,24 @@ my_api_key = os.getenv('GENAI_KEY')
 
 genai.api_key = my_api_key
 
-client = genai.Client(api_key=os.getenv('GENAI_KEY'))
+client = genai.Client(api_key=my_api_key)
 engine = db.create_engine("sqlite:///eventcache.db")
 
 def get_events_from_db():
     with engine.connect() as connection:
-        rows = connection.execute(db.text("SELECT event_id, name, url, date, venue FROM eventcache")).fetchall()
+        rows = connection.execute(db.text("SELECT id, name, url, date, venue, city FROM event")).fetchall()
     return rows
 
 def build_prompt(events, user_interests):
     texts = ""
     for i, event in enumerate(events, 1):
-        event_id, name, url, date, venue = event
+        event_id, name, url, date, venue, city = event
         texts += f"""
                 Event {i}:
                 - Name: {name}
                 - date: {date}
                 - venue: {venue}
+                - city: {city}
                 - URL: {url}
                 """
     
