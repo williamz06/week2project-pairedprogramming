@@ -17,7 +17,8 @@ def store_events(events):
             url = event["url"]
             date = event["date"]
             venue = event["venue"]
+            city = event["city"]
 
-            connection.execute(db.text("INSERT OR REPLACE INTO event VALUES (:id, :name, :url, :date, :venue)"),
-                    {"id": event_id, "name": name, "url": url, "date": date, "venue": venue})
+            connection.execute(db.text("INSERT OR REPLACE INTO event VALUES (:id, :name, :url, :date, :venue, :city)"),
+                    {"id": event_id, "name": name, "url": url, "date": date, "venue": venue, "city": city})
         connection.commit()
