@@ -14,7 +14,7 @@ params = {
    'apikey': API_KEY,
    'city': city,
    'keyword': keyword,
-   'sort': "date,asc',
+   'sort': 'date,asc',
    'size': 20 # <--  number of results, we can up the number if wanted
 }
 
