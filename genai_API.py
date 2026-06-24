@@ -2,8 +2,6 @@ import os
 from google import genai
 from google.genai import types
 import sqlalchemy as db
-from eventfinder import keyword
-
 
 my_api_key = os.getenv('GENAI_KEY')
 
@@ -38,11 +36,10 @@ def build_prompt(events, user_interests):
                """
     return prompt
 
-def get_recommendation():
+def get_recommendation(user_interests):
     events = get_events_from_db()
-    user_interests = keyword
-
     prompt = build_prompt(events, user_interests)
+    
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=prompt
@@ -50,5 +47,6 @@ def get_recommendation():
     return response.text
 
 
-
-print(get_recommendation())
+if __name__ == "__main__":
+    interests = input("Enter your interests: ")
+    print(get_recommendation(interests))
