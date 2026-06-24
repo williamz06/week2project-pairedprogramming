@@ -1,27 +1,23 @@
-import sqlite3
+import sqlalchemy as db
+
+engine = db.create_engine("sqlite:///eventcache.db")
 
 def store_events(events):
-    
-    con = sqlite3.connect("eventcache.db")
-    cur = con.cursor()
-
-    cur.execute("""
+    with engine.connect() as connection:
+        connection.execute(db.text("""
                 CREATE TABLE IF NOT EXISTS event(
                     id TEXT PRIMARY KEY, name, url, date, venue
                 )
-            """)
-    con.commit()
+            """))
+        connection.commit()
 
-    for event in events:
-        event_id = event["id"]
-        name = event["name"]
-        url = event["url"]
-        date = event["date"]
-        venue = event["venue"]
+        for event in events:
+            event_id = event["id"]
+            name = event["name"]
+            url = event["url"]
+            date = event["date"]
+            venue = event["venue"]
 
-        cur.execute("INSERT OR REPLACE INTO event VALUES (?, ?, ?, ?, ?)",
-                    (event_id, name, url, date, venue))
-
-    con.commit()
-    con.close() 
-
+            connection.execute(db.text("INSERT OR REPLACE INTO event VALUES (:id, :name, :url, :date, :venue)"),
+                    {"id": event_id, "name": name, "url": url, "date": date, "venue": venue})
+        connection.commit()
