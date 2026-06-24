@@ -6,7 +6,7 @@ def store_events(events):
     with engine.connect() as connection:
         connection.execute(db.text("""
                 CREATE TABLE IF NOT EXISTS event(
-                    id TEXT PRIMARY KEY, name, url, date, venue
+                    id TEXT PRIMARY KEY, name, url, date, venue, city
                 )
             """))
         connection.commit()
