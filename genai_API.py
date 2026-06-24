@@ -32,6 +32,7 @@ def build_prompt(events, user_interests):
                 1. rank the events from most to least relevant based on the user's interests. 
                 2. for each event give a short 1 sentence explanation of why you recommended it
                 3. Please format your response cleanly using a numbered list.
+                4. Start your answer with 'Here are the events ranked from most to least relevant based on your interest in (rephrase the user's interest)':
 
                 Events: {texts}
                """
@@ -46,8 +47,3 @@ def get_recommendation(user_interests):
         contents=prompt
     )
     return response.text
-
-
-if __name__ == "__main__":
-    interests = input("Enter your interests: ")
-    print(get_recommendation(interests))
