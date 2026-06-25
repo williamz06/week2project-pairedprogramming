@@ -17,11 +17,12 @@ def main():
     while True:
         city = input('Enter city: ')
         keyword = input('Enter a keyword (or press Enter to skip): ')
-        user_interests = input('Enter your interests: ')
+        user_interests = input('What are you interested in and what do you look for in an event? (e.g. jazz at small venues, family-friendly festivals, weekend sports): ')
         events = find_events(city, keyword)
         store_events(events)
 
         print('=' * 40)
+        print('Analyzing and composing answer...\n\n')
         recommendation = get_recommendation(user_interests)
         print(recommendation)
         print('=' * 40)
