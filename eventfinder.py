@@ -22,12 +22,17 @@ def find_events(city, keyword):
    response = requests.get(URL, params=params)
    data = response.json()
 
+   if '_embedded' not in data:
+      print("No events found for this specifc response, sorry!")
+      return [data['_embedded']['events']]
+
+
    events = data['_embedded']['events']
 
    event_list = []
 
    print(f'\n20 Upcoming Events in {city}:')
-   print('-' * 40)
+   print('-' * 60)
 
    for event in events:
       name = event['name']
