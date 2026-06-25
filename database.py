@@ -9,6 +9,9 @@ def store_events(events):
                     id TEXT PRIMARY KEY, name, url, date, venue, city
                 )
             """))
+
+        # Clear out events from any previous search so they don't mix with the current results.
+        connection.execute(db.text("DELETE FROM event"))
         connection.commit()
 
         for event in events:
