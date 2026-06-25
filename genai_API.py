@@ -42,8 +42,12 @@ def get_recommendation(user_interests):
     events = get_events_from_db()
     prompt = build_prompt(events, user_interests)
     
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
-    )
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
+    except Exception:
+        return "Sorry, the recommendation service is currently unavailable. Please try again in a moment."
+
     return response.text
