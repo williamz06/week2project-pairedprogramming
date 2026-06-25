@@ -74,10 +74,11 @@ class TestFunctions(unittest.TestCase):
                 - city: New York
                 - URL: https://www.universe.com/events/museum-of-chinese-in-america-tickets-PZ7R68
                 """
-        prompt = f"""You are an event recommendation assistant. The user is interested in: {user_interests}. Below is a list of upcoming events. Please: 
-                1. rank the events from most to least relevant based on the user's interests. 
+        prompt = f"""You are an event recommendation assistant. The user is interested in: {user_interests}. Below is a list of upcoming events. Please:
+                1. rank the events from most to least relevant based on the user's interests.
                 2. for each event give a short 1 sentence explanation of why you recommended it
                 3. Please format your response cleanly using a numbered list.
+                4. Start your answer with 'Here are the events ranked from most to least relevant based on your interest in (rephrase the user's interest)':
 
                 Events: {texts}
                """
